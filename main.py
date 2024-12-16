@@ -1,26 +1,41 @@
 def main():
+    filepath = "books/frankenstein.txt"
     with open("books/frankenstein.txt") as f:
         file_contents = f.read()
-        counting_words(file_contents)
     try:
+        print_report_header(filepath)
+
+        number_of_words = counting_words(file_contents)
+        
+        print(f"{number_of_words} words found in the document")
+        
         number_of_characters(file_contents)
-        counting_words(file_contents)
+        
+
+
+        print_report_footer()
+        
     except Exception as e:
         print(f"An error has occured {e}")
 
+def print_report_header(filepath):
+    print(f"\n--- Begin report of {filepath} ---")
+
+def print_report_footer():
+    print("--- End report ---")
 
 def sort_on(dict_input):
     return dict_input["total"]
 
 def sorted_values(dict_input):
     char_list = []
-    for char, count in dict_input.items():
-        char_list.append({"char":char, "total": count})
+    for character, count in dict_input.items():
+        char_list.append({"character":character, "total": count})
 
     char_list.sort(reverse = True, key=sort_on)
 
     for item in char_list:
-        # print(item)
+        print(f"The '{item['character']}' character was found {item['total']} times")
         pass
     
 
@@ -47,7 +62,6 @@ def number_of_characters(file_contents):
             characters[character] += 1
             
     sorted_values(characters)
-    print(characters)
 
 
 
